@@ -2,7 +2,10 @@ import { useContext, createContext, useState, useCallback, useEffect } from "rea
 
 const TopAirlinesContext = createContext();
 
-const BASE_URL = `/api`
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'
+    : 'http://localhost:3001';
+
 const endpoint = `/top-airlines`
 
 function TopAirlinesProvider({ children }) {
@@ -18,7 +21,7 @@ function TopAirlinesProvider({ children }) {
         setIsLoading(true)
 
         try {
-            const res = await fetch(`${BASE_URL}${endpoint}?limit=${submittedLimit}&page=${page}&pageSize=${pageSize}`)
+            const res = await fetch(`${API_BASE_URL}${endpoint}?limit=${submittedLimit}&page=${page}&pageSize=${pageSize}`)
             const data = await res.json()
             setResult(data)
         } catch (err) {

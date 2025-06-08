@@ -1,5 +1,9 @@
 import { useContext, useState, createContext, useEffect, useCallback } from "react";
 
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'
+    : 'http://localhost:3001';
+
 const DelayedFlightsContext = createContext();
 
 function DelayedFlightsProvider({ children }) {
@@ -22,7 +26,7 @@ function DelayedFlightsProvider({ children }) {
 
         setIsLoading(true);
         try {
-            const res = await fetch(`/api/flights/late-departure/${submittedDelay}?page=${page}&limit=${pageSize}`);
+            const res = await fetch(`${API_BASE_URL}/flights/late-departure/${submittedDelay}?page=${page}&limit=${pageSize}`);
             const data = await res.json();
             setResult(data);
 

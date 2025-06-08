@@ -1,7 +1,12 @@
-
 import { createContext, useContext } from "react";
 import { useState } from "react";
+
 const BookingsContext = createContext();
+
+// Add API base URL detection
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'  // Production: use /api prefix
+    : 'http://localhost:3001';  // Development: direct to server
 
 function formatDate(date) {
     const formattedDate = new Intl.DateTimeFormat("sk-SK", {
@@ -28,7 +33,8 @@ function BookingsProvider({ children }) {
         if (!bookRefId) return;
         try {
             setIsLoading(true)
-            const res = await fetch(`/api/bookings/${bookRefId}`);
+            // Use dynamic API URL
+            const res = await fetch(`${API_BASE_URL}/bookings/${bookRefId}`);
             const data = await res.text();
             const parsedData = JSON.parse(data);
             setResult(parsedData);

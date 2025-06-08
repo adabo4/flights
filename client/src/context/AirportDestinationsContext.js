@@ -1,7 +1,10 @@
 import { useContext, createContext, useState, useEffect, useCallback } from "react"
 
-
 const AirportDestinationsContext = createContext()
+
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'
+    : 'http://localhost:3001';
 
 function AirportDestinationProvider({ children }) {
     const [airport, setAirport] = useState("");
@@ -23,7 +26,7 @@ function AirportDestinationProvider({ children }) {
 
         setIsLoading(true);
         try {
-            const res = await fetch(`/api/airports/${submittedAirport}/destinations?page=${page}&pageSize=${pageSize}`);
+            const res = await fetch(`${API_BASE_URL}/airports/${submittedAirport}/destinations?page=${page}&pageSize=${pageSize}`);
             const data = await res.json();
             console.log(data)
             setResult(data);

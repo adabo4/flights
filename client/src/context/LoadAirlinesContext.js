@@ -2,12 +2,16 @@ import { useContext, createContext, useState, useCallback, useEffect } from "rea
 
 const LoadAirlinesContext = createContext();
 
-const BASE_URL = `/api`
+// Update this line to be environment-aware
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'
+    : 'http://localhost:3001';
+
 const endpoint = `/airlines`
 
 function LoadAirlinesProvider({ children }) {
     const [flightNo, setFlightNo] = useState("")
-    const [submittedflightNo, setSubmittedFlightNo] = useState("") // NEW
+    const [submittedflightNo, setSubmittedFlightNo] = useState("")
     const [result, setResult] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [page, setPage] = useState(0);
@@ -19,7 +23,8 @@ function LoadAirlinesProvider({ children }) {
         setIsLoading(true)
 
         try {
-            const res = await fetch(`${BASE_URL}${endpoint}/${submittedflightNo}/load?page=${page}&pageSize=${pageSize}`)
+            // Use the environment-aware API_BASE_URL
+            const res = await fetch(`${API_BASE_URL}${endpoint}/${submittedflightNo}/load?page=${page}&pageSize=${pageSize}`)
             const data = await res.json()
             console.log(data)
             setResult(data)

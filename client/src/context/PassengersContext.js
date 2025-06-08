@@ -1,7 +1,13 @@
 
 import { createContext, useContext } from "react";
 import { useState, useEffect, useCallback } from "react";
+
 const PassengersContext = createContext();
+
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api'
+    : 'http://localhost:3001';
+
 
 function PassengersProvider({ children }) {
     const [passengerId, setPassengerId] = useState("");
@@ -24,7 +30,7 @@ function PassengersProvider({ children }) {
         if (!submittedPassengerId) return;
         setLoading(true)
         try {
-            const res = await fetch(`/api/passengers/${submittedPassengerId}/companions?page=${page}&limit=${pageSize}`);
+            const res = await fetch(`${API_BASE_URL}/passengers/${submittedPassengerId}/companions?page=${page}&limit=${pageSize}`);
             const data = await res.text();
             const parsedData = JSON.parse(data);
             setResult(parsedData);
