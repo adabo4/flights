@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+dotenv.config();
 import { connectDatabase } from "./data/db.js";
 import passengersRouter from "./routes/passengers.js"
 import bookingRouter from "./routes/bookings.js"
@@ -14,7 +15,6 @@ import loadWeekRouter from "./routes/load-week.js"
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-dotenv.config();
 
 // Middleware
 app.use(cors());
