@@ -24,7 +24,7 @@ function PassengersProvider({ children }) {
         if (!submittedPassengerId) return;
         setLoading(true)
         try {
-            const res = await fetch(`http://localhost:3000/passengers/${submittedPassengerId}/companions?page=${page}&limit=${pageSize}`);
+            const res = await fetch(`/api/passengers/${submittedPassengerId}/companions?page=${page}&limit=${pageSize}`);
             const data = await res.text();
             const parsedData = JSON.parse(data);
             setResult(parsedData);

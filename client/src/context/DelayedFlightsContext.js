@@ -22,7 +22,7 @@ function DelayedFlightsProvider({ children }) {
 
         setIsLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/flights/late-departure/${submittedDelay}?page=${page}&limit=${pageSize}`);
+            const res = await fetch(`/api/flights/late-departure/${submittedDelay}?page=${page}&limit=${pageSize}`);
             const data = await res.json();
             setResult(data);
 

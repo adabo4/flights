@@ -2,7 +2,7 @@ import { useContext, createContext, useState, useCallback, useEffect } from "rea
 
 const LoadAirlinesContext = createContext();
 
-const BASE_URL = `http://localhost:3000`
+const BASE_URL = `/api`
 const endpoint = `/airlines`
 
 function LoadAirlinesProvider({ children }) {

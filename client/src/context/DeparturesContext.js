@@ -27,7 +27,7 @@ function DeparturesProvider({ children }) {
 
         setIsLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/departures?airport=${submittedAirport}&day=${submittedDay}&page=${page}&pageSize=${pageSize}`);
+            const res = await fetch(`/api/departures?airport=${submittedAirport}&day=${submittedDay}&page=${page}&pageSize=${pageSize}`);
             const data = await res.json();
             console.log(data)
             setResult(data);

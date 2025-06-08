@@ -2,7 +2,7 @@ import { useContext, createContext, useState, useCallback, useEffect } from "rea
 
 const TopAirlinesContext = createContext();
 
-const BASE_URL = `http://localhost:3000`
+const BASE_URL = `/api`
 const endpoint = `/top-airlines`
 
 function TopAirlinesProvider({ children }) {

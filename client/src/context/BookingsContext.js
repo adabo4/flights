@@ -28,7 +28,7 @@ function BookingsProvider({ children }) {
         if (!bookRefId) return;
         try {
             setIsLoading(true)
-            const res = await fetch(`http://localhost:3000/bookings/${bookRefId}`);
+            const res = await fetch(`/api/bookings/${bookRefId}`);
             const data = await res.text();
             const parsedData = JSON.parse(data);
             setResult(parsedData);
