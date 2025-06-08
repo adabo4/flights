@@ -7,10 +7,27 @@ import {
     Paper,
     TextField,
     Typography,
-    CircularProgress
+    CircularProgress,
+    Autocomplete
 } from "@mui/material";
 
 import TableAirportDestinations from "./TableAirportDestinations"
+
+const airportOptions = [
+    'YKS', 'MJZ', 'KHV', 'PKC', 'UUS', 'VVO', 'KGD', 'KEJ',
+    'CEK', 'MQF', 'PEE', 'SGC', 'BZK', 'MRV', 'STW', 'ASF',
+    'NJC', 'SVX', 'VOZ', 'SCW', 'KUF', 'DME', 'TJM', 'GOJ',
+    'TOF', 'UIK', 'NSK', 'ARH', 'RTW', 'NUX', 'NOJ', 'UCT',
+    'USK', 'NNM', 'PKV', 'KGP', 'KJA', 'URJ', 'IWA', 'PYJ',
+    'KXK', 'DYR', 'PES', 'KYZ', 'NOZ', 'GRV', 'NAL', 'OGZ',
+    'ESL', 'SLY', 'HMA', 'NYA', 'OVS', 'IJK', 'KVX', 'NYM',
+    'NFG', 'KRO', 'EGO', 'URS', 'LPK', 'VKT', 'UUA', 'JOK',
+    'CSY', 'ULY', 'OSW', 'PEZ', 'SKX', 'TBW', 'UKX', 'GDZ',
+    'IAR', 'NBC', 'ULV', 'SWT', 'EYK', 'KLF', 'RGK', 'KRR',
+    'MCX', 'KZN', 'REN', 'UFA', 'OVB', 'CEE', 'OMS', 'ROV',
+    'AER', 'VOG', 'BQS', 'GDX', 'HTA', 'BTK', 'IKT', 'UUD',
+    'MMK', 'ABA', 'BAX', 'AAQ', 'CNN'
+];
 
 function AirportDestinations() {
     const { airport, setAirport, handleSubmit, isLoading: loadingAirportDestinations, result: AirportDestinationsResult } = useAirportDestinations()
@@ -20,12 +37,24 @@ function AirportDestinations() {
                 <Box width={500}>
                     <Paper elevation={3} sx={{ p: 3 }}>
                         <Typography variant="h6" gutterBottom>nter an airport code to see destination airports:</Typography>
-                        <TextField
-                            label="Airport Code"
-                            fullWidth
+                        <Autocomplete
+                            options={airportOptions}
                             value={airport}
-                            onChange={(e) => setAirport(e.target.value)}
-                            margin="normal"
+                            onChange={(event, newValue) => setAirport(newValue || '')}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Airport Code"
+                                    fullWidth
+                                    margin="normal"
+                                />
+                            )}
+                            freeSolo  // Allows typing custom values
+                            filterOptions={(options, { inputValue }) =>
+                                options.filter(option =>
+                                    option.toLowerCase().includes(inputValue.toLowerCase())
+                                )
+                            }
                         />
                         <Button
                             variant="contained"

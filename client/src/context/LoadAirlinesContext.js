@@ -36,8 +36,9 @@ function LoadAirlinesProvider({ children }) {
     }, [submittedflightNo, page, pageSize])
 
     function handleSubmit() {
-        setFlightNo("")
-        setSubmittedFlightNo(flightNo)
+        if (!flightNo) return;
+        setPage(0);  // Reset to first page
+        setSubmittedFlightNo(flightNo);
     }
 
     useEffect(() => {
