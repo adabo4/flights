@@ -13,7 +13,7 @@ import loadWeekRouter from "./routes/load-week.js"
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 dotenv.config();
 
 // Middleware
