@@ -11,56 +11,50 @@ import {
 } from "@mui/material";
 
 function TopAirlines() {
-
     const { limit, setLimit, handleSubmit, result: resultTopAirlines, isLoading: loadingTopAirlines } = useTopAirlines()
     console.log(resultTopAirlines?.results)
     return (
         <>
-
             <Grid item xs={12} md={6} margin={5} maxWidth={1200}>
-                <Box width={500}>
+                <Box 
+                    width={{ xs: '100%', sm: '100%', md: 500 }}
+                    maxWidth="100%"
+                >
                     <Paper elevation={3} sx={{ p: 3 }}>
-
                         <Typography variant="h6" gutterBottom>Enter number of airlines to display:</Typography>
+                        
                         <TextField
-                            label="No. of airlines."
+                            label="No. of airlines"
                             fullWidth
                             value={limit}
                             onChange={(e) => setLimit(e.target.value)}
                             margin="normal"
+                            type="number"  // ← Add number input type
                         />
 
                         <Button
                             variant="contained"
                             onClick={handleSubmit}
                             disabled={loadingTopAirlines}
+                            fullWidth  // ← Make button full width on mobile
                         >
-                            {loadingTopAirlines ? <CircularProgress size={20} /> : "Fetch Companions"}
+                            {loadingTopAirlines ? <CircularProgress size={20} /> : "Fetch Top Airlines"}
                         </Button>
-
                     </Paper>
                 </Box>
 
+                {resultTopAirlines?.results?.length > 0 && (
+                    <Box mt={3}>
+                        {!loadingTopAirlines && resultTopAirlines && (
+                            <TableTopAirlines></TableTopAirlines>
+                        )}
 
-                {
-                    resultTopAirlines?.results?.length > 0 && (
-                        <Box mt={3}>
-                            {!loadingTopAirlines && resultTopAirlines && (
-                                <TableTopAirlines></TableTopAirlines>
-                            )}
-
-                            {!loadingTopAirlines && resultTopAirlines?.results?.length === 0 && (
-                                <p>No passengers found.</p>
-                            )}
-                        </Box>
-                    )
-                }
+                        {!loadingTopAirlines && resultTopAirlines?.results?.length === 0 && (
+                            <p>No airlines found.</p>
+                        )}
+                    </Box>
+                )}
             </Grid>
-            {/* <h2>Display Top Airlines</h2>
-            <input type="text" value={limit} onChange={(e) => setLimit(e.target.value)} />
-            <button onClick={handleSubmit}>Submit</button>
-            {isLoading && <Spinner></Spinner>}
-            {result && <TableTopAirlines />} */}
         </>
     )
 }

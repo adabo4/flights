@@ -48,7 +48,8 @@ function PassPage() {
     return (
         <>
             <Grid item xs={12} md={6} margin={5} maxWidth={1200}>
-                <Box width={500}>
+                <Box width={{ xs: '100%', sm: '100%', md: 500 }}
+                    maxWidth="100%">
                     <Paper elevation={3} sx={{ p: 3 }}>
                         <Typography variant="h6" gutterBottom>Get Passenger Companions</Typography>
 

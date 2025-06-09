@@ -31,12 +31,14 @@ function Departures() {
     const { airport, setAirport, day, setDay, handleSubmit, isLoading: loadingDepartures, result: resultDepartures } = useDepartures()
     return (
         <>
-
             <Grid item xs={12} md={6} margin={5} maxWidth={1200}>
-                <Box width={500}>
+                <Box 
+                    width={{ xs: '100%', sm: '100%', md: 500 }}
+                    maxWidth="100%"
+                >
                     <Paper elevation={3} sx={{ p: 3 }}>
-
                         <Typography variant="h6" gutterBottom>Enter airport and day to see planned flights:</Typography>
+                        
                         <Autocomplete
                             options={airportOptions}
                             value={airport}
@@ -56,6 +58,7 @@ function Departures() {
                                 )
                             }
                         />
+                        
                         <TextField
                             label="Day"
                             fullWidth
@@ -63,33 +66,30 @@ function Departures() {
                             onChange={(e) => setDay(e.target.value)}
                             margin="normal"
                         />
+                        
                         <Button
                             variant="contained"
                             onClick={handleSubmit}
                             disabled={loadingDepartures}
+                            fullWidth  // ← Make button full width on mobile
                         >
-                            {loadingDepartures ? <CircularProgress size={20} /> : "Fetch Companions"}
+                            {loadingDepartures ? <CircularProgress size={20} /> : "Fetch Departures"}
                         </Button>
-
                     </Paper>
                 </Box>
 
+                {resultDepartures?.results?.length > 0 && (
+                    <Box mt={3}>
+                        {!loadingDepartures && resultDepartures && (
+                            <TableDepartures></TableDepartures>
+                        )}
 
-                {
-                    resultDepartures?.results?.length > 0 && (
-                        <Box mt={3}>
-                            {!loadingDepartures && resultDepartures && (
-                                <TableDepartures></TableDepartures>
-                            )}
-
-                            {!loadingDepartures && resultDepartures?.results?.length === 0 && (
-                                <p>No passengers found.</p>
-                            )}
-                        </Box>
-                    )
-                }
+                        {!loadingDepartures && resultDepartures?.results?.length === 0 && (
+                            <p>No departures found.</p>
+                        )}
+                    </Box>
+                )}
             </Grid>
-
         </>
     )
 }

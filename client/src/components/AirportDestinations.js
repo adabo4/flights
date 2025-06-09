@@ -1,4 +1,3 @@
-
 import { useAirportDestinations } from "../context/AirportDestinationsContext"
 import {
     Box,
@@ -10,7 +9,6 @@ import {
     CircularProgress,
     Autocomplete
 } from "@mui/material";
-
 import TableAirportDestinations from "./TableAirportDestinations"
 
 const airportOptions = [
@@ -34,9 +32,13 @@ function AirportDestinations() {
     return (
         <>
             <Grid item xs={12} md={6} margin={5} maxWidth={1200}>
-                <Box width={500}>
+                <Box
+                    width={{ xs: '100%', sm: '100%', md: 500 }}
+                    maxWidth="100%"
+                >
                     <Paper elevation={3} sx={{ p: 3 }}>
-                        <Typography variant="h6" gutterBottom>nter an airport code to see destination airports:</Typography>
+                        <Typography variant="h6" gutterBottom>Enter an airport code to see destination airports:</Typography>
+
                         <Autocomplete
                             options={airportOptions}
                             value={airport}
@@ -49,28 +51,27 @@ function AirportDestinations() {
                                     margin="normal"
                                 />
                             )}
-                            freeSolo  // Allows typing custom values
+                            freeSolo
                             filterOptions={(options, { inputValue }) =>
                                 options.filter(option =>
                                     option.toLowerCase().includes(inputValue.toLowerCase())
                                 )
                             }
                         />
+
                         <Button
                             variant="contained"
                             onClick={handleSubmit}
                             disabled={loadingAirportDestinations}
+                            fullWidth
                         >
-                            {loadingAirportDestinations ? <CircularProgress size={20} /> : "Fetch Companions"}
+                            {loadingAirportDestinations ? <CircularProgress size={20} /> : "Fetch Destinations"}
                         </Button>
                     </Paper>
                 </Box>
 
-
-
                 {AirportDestinationsResult?.results?.length > 0 && (
                     <Box mt={3}>
-
                         {!loadingAirportDestinations && AirportDestinationsResult && (
                             <TableAirportDestinations></TableAirportDestinations>
                         )}
@@ -80,9 +81,7 @@ function AirportDestinations() {
                         )}
                     </Box>
                 )}
-
             </Grid >
-
         </>
     )
 }

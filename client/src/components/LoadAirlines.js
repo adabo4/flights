@@ -33,9 +33,13 @@ function LoadAirlines() {
     return (
         <>
             <Grid item xs={12} md={6} margin={5} maxWidth={1200}>
-                <Box width={500}>
+                <Box
+                    width={{ xs: '100%', sm: '100%', md: 500 }}
+                    maxWidth="100%"
+                >
                     <Paper elevation={3} sx={{ p: 3 }}>
                         <Typography variant="h6" gutterBottom>Get Airlines Load</Typography>
+
                         <Autocomplete
                             options={flightNoOptions}
                             value={flightNo}
@@ -55,21 +59,20 @@ function LoadAirlines() {
                                 )
                             }
                         />
+
                         <Button
                             variant="contained"
                             onClick={handleSubmit}
                             disabled={loadingAirlinesLoad}
+                            fullWidth  // ← Make button full width on mobile
                         >
-                            {loadingAirlinesLoad ? <CircularProgress size={20} /> : "Fetch Companions"}
+                            {loadingAirlinesLoad ? <CircularProgress size={20} /> : "Get Airlines Load"}
                         </Button>
                     </Paper>
                 </Box>
 
-
-
                 {loadAirlinesResult?.results?.length > 0 && (
                     <Box mt={3}>
-
                         {!loadingAirlinesLoad && loadAirlinesResult && (
                             <TableLoadAirlines></TableLoadAirlines>
                         )}
@@ -79,9 +82,7 @@ function LoadAirlines() {
                         )}
                     </Box>
                 )}
-
             </Grid >
-
         </>
     )
 }
